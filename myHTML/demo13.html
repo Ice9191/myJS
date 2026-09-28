@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this指向的情况</title>
+</head>
+
+<body>
+    <button id="btn">按钮</button>
+    <script>
+        // 1. 独立函数的直接调用
+        function fn1() {
+            // 指向window对象
+            console.log(this)
+        }
+        fn1()    //window
+        console.log('-------------------------------------')
+        // 2. 作为对象的方法调用
+        let obj1 = {
+            name: '张三',
+            age: 20,
+            say: function () {
+                // 指向obj1对象
+                console.log(this.name)
+            }
+        }
+        obj1.say()    //张三
+        console.log('-------------------------------------')
+        // 3. 通过call()、apply()方法强行指定this指向，bind()方法会返回一个永久绑定了 this 的新函数。
+        function greet() {
+            console.log(this)
+        }
+        let obj2 = { name: 'Tom', age: 20 }
+        // 强行指定this指向obj2对象
+        greet.call(obj2)    //{ name: 'Tom', age: 20 }
+        greet.apply(obj2)    //{ name: 'Tom', age: 20 }
+        // bind()方法会返回一个永久绑定了 this 的新函数。
+        let bound = greet.bind(obj2)
+        bound()    //{ name: 'Tom', age: 20 }
+        console.log('-------------------------------------')
+        // 4. new 绑定（构造函数调用）
+        function Person(name) {
+            // this指向新创建的实例
+            this.name = name
+        }
+        const p = new Person('张三')
+        console.log(p)    //{ name: '张三' }
+        console.log('-------------------------------------')
+        // 5. 箭头函数
+        const obj3 = {
+            name: '里斯',
+            say: function () {
+                setTimeout(() => {
+                    // 箭头函数继承外层的this（即obj3）
+                    console.log(this.name)
+                }, 100)
+            }
+        }
+        obj3.say()  // 里斯
+        // 6. DOM 事件处理函数中的 this
+        document.getElementById('btn').addEventListener('click', function () {
+            // this指向该dom元素
+            console.log(this)
+        })
+        document.getElementById('btn').addEventListener('click', () => {
+            // this指向window
+            console.log(this)
+        })
+    </script>
+</body>
+
+</html>

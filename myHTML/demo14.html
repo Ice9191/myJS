@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6的Set对象和Map对象</title>
+</head>
+
+<body>
+    <script>
+        // Set对象：无重复值的类数组集合
+        // 应用场景：数组去重
+        let arr = [1, 2, 2, 3, 3, 4, 4]
+        // Array.from()方法可以将类数组对象转换为真正的数组
+        const set = new Set(arr)
+        console.log(Array.from(set))    // [1, 2, 3, 4]
+        set.add(5)
+        console.log(Array.from(set))    // [1, 2, 3, 4, 5]
+        set.delete(2)
+        console.log(Array.from(set))    // [1, 3, 4, 5]
+        console.log(set.has(5))    // true
+        console.log(set.size)    // 4
+
+        // Map对象：键值对的集合
+        // 应用场景：缓存数据（用DOM节点作为键来存储关联数据）、存储对象元数据、或者需要频繁增删键值对的场景（性能比普通对象更优）。
+        const map = new Map()
+        const obj = {
+            id: 1001,
+            name: '张三',
+            age: 20
+        }
+        // 这里的obj是引用地址（键），'里斯'是值
+        map.set(obj, '里斯')
+        map.set('name', '赵武')
+        console.log(map.get(obj))    // '里斯'
+        console.log(map.get('name'))    // '赵武'
+        console.log(map.size)    // 2
+        console.log(map)
+    </script>
+</body>
+
+</html>

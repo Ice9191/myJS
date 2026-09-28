@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+    <style>
+        .fu {
+            width: 500px;
+            border: solid 3px red;
+        }
+
+        .zi1,
+        .zi2 {
+            width: 200px;
+            height: 200px;
+            border: solid 3px yellow;
+            /* float: left; 父盒子高度塌陷，height变为0 */
+            /* position: absolute; 子盒子添加position: absolute时 父盒子高度塌陷 */
+            /* position: fixed; 子盒子添加position: fixed时 父盒子高度塌陷 */
+        }
+
+        .fu1 {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+        }
+
+        .zi3 {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>BFC用于解决父盒子高度塌陷、边框合并问题</div>
+    <div>如何触发高度塌陷：
+        1. float: left;
+        2. position: absolute;
+        3. position: fixed;
+    </div>
+    <div>如何触发BFC：
+        1. 给父盒子添加display: flex;
+        2. 给父盒子添加overflow: auto; 或 overflow: hidden;
+        3. 给父盒子添加栅格布局display: grid;
+    </div>
+    <div class="fu">
+        <div class="zi1"></div>
+        <div class="zi2"></div>
+    </div>
+    <div>-------------------------------------</div>
+    <div>如何解决外边框合并问题：使用触发BFC解决
+    </div>
+    <div class="fu1">
+        <div class="zi3"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组reduce方法的使用</title>
+</head>
+
+<body>
+    <script>
+        // arr.reduce((累加器, 当前元素, 当前索引, 原数组) => {
+        //     // 必须 return 新的累加器（给下一轮用）
+        // }, 初始值);
+        // https://chat.deepseek.com/share/avlub0j50vpdhl7f99
+        console.log('-------------------累加数组元素所有值------------------------');
+        // 基础使用：累加数组元素所有值
+        const nums = [1, 2, 3, 4, 5]
+        // 无初始值，默认累加器为数组第一个元素 1
+        // 第一轮：acc = 1, cur = 2, acc + cur = 3, return 3
+        // 第二轮：acc = 3, cur = 3, acc + cur = 6, return 6
+        // 第三轮：acc = 6, cur = 4, acc + cur = 10, return 10
+        // 第四轮：acc = 10, cur = 5, acc + cur = 15, return 15
+        // 最后返回 15
+        const sum = nums.reduce((acc, cur) => acc + cur)
+        // 有初始值，默认累加器为初始值 0
+        // 第一轮：acc = 0, cur = 1, acc + cur = 1, return 1
+        // 第二轮：acc = 1, cur = 2, acc + cur = 3, return 3
+        // 第三轮：acc = 3, cur = 3, acc + cur = 6, return 6
+        // 第四轮：acc = 6, cur = 4, acc + cur = 10, return 10
+        // 第五轮：acc = 10, cur = 5, acc + cur = 15, return 15
+        // 最后返回 15
+        const sum2 = nums.reduce((acc, cur) => acc + cur, 0)
+        console.log(sum); // 15
+        console.log(sum2); // 15
+        console.log('-------------------实现数组去重------------------------');
+        // 进阶用法：实现数组去重
+        const nums2 = [1, 2, 2, true, true, 'a', 'a']
+        const unique = nums2.reduce((acc, cur) => {
+            // 判断累加器acc中是否存在当前元素cur
+            if (acc.indexOf(cur) === -1) {
+                acc.push(cur)
+            }
+            // 返回新的累加器acc
+            return acc
+            // 初始化累加器为一个空数组
+        }, [])
+        console.log(unique)
+        const objs = [{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 1, name: 'C' }]
+        const unique2 = objs.reduce((acc, cur) => {
+            // 判断累加器acc中是否存在当前元素cur
+            if (!acc.some(item => item.id === cur.id)) {
+                acc.push(cur)
+            }
+            // 如果不存在，就添加到累加器acc中
+            return acc
+        }, [])
+        console.log(unique2)
+        console.log('-------------------分组-----------------------');
+        // 高级用法：将数组按属性分组
+        const users = [
+            { name: '张三', city: '南京' },
+            { name: '李四', city: '上海' },
+            { name: '王五', city: '南京' }
+        ];
+        const grouped = users.reduce((acc, cur) => {
+            if (!acc[cur.city]) {
+                acc[cur.city] = []
+            }
+            acc[cur.city].push(cur)
+            return acc
+        }, {})// ⬅️ 初始值是一个空对象 {}
+        console.log(grouped)
+    </script>
+</body>
+
+</html>

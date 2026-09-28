@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深拷贝和浅拷贝的区别</title>
+</head>
+
+<body>
+    <div>
+        <img src="../assets//Snipaste_2026-08-26_18-38-40.png" style="width: 800px;" alt="">
+    </div>
+    <div id="div">fortest</div>
+    <script>
+        // 浅拷贝
+        // 数组的批量操作方法：使用 arr.slice()、[...arr] 拷贝数组，配合 map、filter 返回新数组。只要不修改数组内的对象元素（如仅重排序、增删顶层基本类型），浅拷贝足够且高效。
+        console.log("----------------直接赋值-----------------")
+        let obj1 = {
+            name: '张三',
+            age: 18,
+            info: {
+                sex: '男'
+            }
+        };
+        // 直接赋值没有意义，因为obj2和obj1指向同一个对象，内存地址相同，修改obj2会修改obj1的属性。
+        let obj2 = obj1;
+        console.log(obj1 === obj2)  // true
+        obj2.name = '李四'
+        obj2.info.sex = '女'
+        console.log('obj1:', obj1)
+        console.log('obj2:', obj2)
+        console.log("----------------浅拷贝------------------")
+        let obj12 = {
+            name: '张三',
+            age: 18,
+            info: {
+                sex: '男'
+            }
+        };
+        // 解构赋值：可以实现浅拷贝，但是不能实现深拷贝。
+        let obj5 = { ...obj12 }
+        console.log(obj12 === obj5)  // false
+        obj5.name = '王五'
+        obj5.info.sex = '中性'
+        console.log(obj12)
+        console.log(obj5)
+        console.log("----------------深拷贝------------------")
+        let obj3 = {
+            name: '赵六',
+            age: 20,
+            info: {
+                sex: '男'
+            }
+        };
+        // 深拷贝：使用JSON.stringify()方法将对象转换为字符串，再使用JSON.parse()方法将字符串转换为对象。
+        // 深拷贝的应用场景：状态管理中的“重置初始化”：当用户点击“恢复默认设置”时，需要用深拷贝保存的原始模板数据完全覆盖当前状态，而不是引用同一个默认对象（否则修改默认模板会污染所有新用户）。
+        let obj4 = JSON.parse(JSON.stringify(obj3));
+        console.log("深拷贝");
+        obj4.name = '王五';
+        obj4.info.sex = '中性'
+        console.log(obj3);
+        console.log(obj4);
+        console.log("----------------深拷贝的问题------------------")
+        // 深拷贝的问题
+        // 1. 循环引用问题：如果对象中包含循环引用，就是对象自己引用自己，深拷贝会报错。
+        const testObject = {
+            name: 'test',
+            inner: {
+                info: 'inner'
+            }
+        }
+        testObject.self = testObject
+        // 会直接抛出错误
+        // const object = JSON.parse(JSON.stringify(testObject))
+        // 解决方案：使用structuredClone()方法
+        const copy = structuredClone(testObject)
+        console.log(copy.self === copy) // true
+
+        // 2. 函数、undefined 的“静默丢失”或“报错”
+        const testObject2 = {
+            fn: function () { console.log('hi') },
+            undef: undefined,
+            name: 'test',
+            inner: {
+                info: 'inner'
+            }
+        }
+        const object2 = JSON.parse(JSON.stringify(testObject2))
+        console.log(object2)    // JSON：返回 {name: 'test', inner: {info: 'inner'}}，函数和undefined全都丢了
+
+        // 3. DOM 节点与浏览器宿主对象：如果你试图深拷贝一个 DOM 元素，会报错，因为 DOM 元素是浏览器宿主对象，不能被 JSON.stringify() 方法转换为字符串。
+        const div = document.getElementById('div')
+        console.dir(typeof div) // object
+        const object3 = JSON.parse(JSON.stringify(div))
+        console.log(object3)    // {}
+    </script>
+</body>
+
+</html>

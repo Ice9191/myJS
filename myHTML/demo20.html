@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async和await</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * async/await 是 JavaScript 中用于处理异步操作的语法糖，让写异步代码的感觉，像写同步代码一样流畅直观，从而彻底告别“回调地狱”和复杂的 Promise 链式调用。
+         * async：用来声明一个函数是异步的。被它修饰的函数一定会返回一个 Promise 对象（即使你返回的是数字，它也会自动包装成 Promise.resolve(数字)）。
+         * await：只能用在 async 函数内部。它的作用是暂停当前函数的执行，等待后面的 Promise 对象状态变为 resolved（成功）或 rejected（失败）。一旦 Promise 有了结果，await 就会解包这个结果并继续往下执行。
+         * https://chat.deepseek.com/share/rbu9rut637vy8jklka
+         */
+        // 延迟函数
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+        const fn = async () => {
+            // 等待 1 秒
+            await delay(1000)
+            const num = 10
+            return num
+        }
+        fn().then(res => console.log(res))
+    </script>
+</body>
+
+</html>

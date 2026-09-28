@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise对象</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * Promise 是 JavaScript 中用于处理异步操作的对象，可以实现链式调用，能把层层嵌套的回调地狱改写为扁平的链式写法，让代码更易于维护。
+         * 回调地狱：https://chat.deepseek.com/share/63kbdjvub63z6w2bow
+         * Promise的三种状态：Pending Fulfilled Rejected
+         * Promise实例的方法：.then() .catch() .finally()
+         * Promise构造函数的静态方法：Promise.resolve() Promise.reject() .all() .allSettled() .race() .any()
+         */
+        // 1. 创建一个会成功的 Promise（Pending -> Fulfilled）
+        const successPromise = new Promise((resolve, reject) => {
+            console.log('⏳ 状态：Pending（正在执行异步操作...）');
+            setTimeout(() => {
+                // 快速返回一个Fulfilled状态的Promise实例
+                resolve('✅ 数据加载成功！'); // 调用 resolve，状态变为 Fulfilled
+            }, 1000);
+        });
+        // .then() 处理成功回调
+        successPromise.then((value) => {
+            console.log('收到结果：', value); // 1秒后输出：收到结果： ✅ 数据加载成功！
+        });
+        // ---------------------------------------------------
+        // 2. 创建一个会失败的 Promise（Pending -> Rejected）
+        const failPromise = new Promise((resolve, reject) => {
+            console.log('⏳ 状态：Pending（正在请求接口...）');
+            setTimeout(() => {
+                // 快速返回一个Rejected状态的Promise实例
+                reject('❌ 服务器报错 404！'); // 调用 reject，状态变为 Rejected
+            }, 1000);
+        });
+        // .catch() 处理失败回调
+        failPromise.catch((error) => {
+            console.log('捕获异常：', error); // 1秒后输出：捕获异常： ❌ 服务器报错 404！
+        });
+        // .finally() 处理无论成功失败都调用的回调，应用场景：关闭加载动画
+        successPromise.finally(() => {
+            console.log('🏁 无论成败，都调用！')
+        })
+        console.log('--------------------Promise.all()------------------------')
+        // 一起发送，当全部都成功，才返回成功，有一个失败，就返回失败
+        const p1 = Promise.resolve(1);
+        const p2 = Promise.resolve(2);
+        const p3 = Promise.resolve(3);
+        Promise.all([p1, p2, p3])
+            .then(results => console.log(results)); // 输出: [1, 2, 3] （顺序严格一致）
+        console.log('--------------------Promise.allSettled()------------------------')
+        // 等待全部Promise都走完（无论成功还是失败），返回一个对象数组，每个对象包含 status（'fulfilled' 或 'rejected'）以及对应的 value 或 reason。
+        // 适用场景：批量任务彼此独立，不希望因为一个失败而影响整个流程（如：批量上传多张图片，希望统计哪些成功、哪些失败）。
+        const p4 = Promise.resolve('成功');
+        const p5 = Promise.reject('失败');
+        Promise.allSettled([successPromise, failPromise, p1, p2, p3, p4, p5])
+            .then(results => console.log(results));
+        console.log('--------------------Promise.race()------------------------')
+        // 一起发送，只返回最快的，无论成功还是失败
+        Promise.race([successPromise, failPromise, p1, p2, p3, p4, p5])
+            .then(results => console.log(results)); // 返回了最快的p1 1
+        console.log('--------------------Promise.any()------------------------')
+        // 一起发送，当任意一个成功，就返回成功
+        Promise.any([successPromise, failPromise, p4, p5])
+            .then(results => console.log(results)); // 返回了第一个成功的p4 成功
+    </script>
+</body>
+
+</html>

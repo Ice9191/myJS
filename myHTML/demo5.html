@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex属性</title>
+    <style>
+        [class^="fu"] {
+            width: 1000px;
+            height: 800px;
+            border: 2px solid green;
+            display: flex;
+        }
+
+        [class^="zi"] {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .fu1 {
+            /* 纵向排列 */
+            flex-direction: column;
+            /* 横向排列（默认） */
+            /* flex-direction: row; */
+        }
+
+        .fu2 {
+            /* 居中 */
+            /* justify-content: center; */
+            /* 间距相等 */
+            /* justify-content: space-between; */
+            /* 一个盒子的左右间距相等 */
+            /* justify-content: space-around; */
+            /* 间距均分 */
+            justify-content: space-evenly;
+        }
+
+        .fu3 {
+            /* 单行居中 */
+            /* align-items: center; */
+            /* 允许换行 */
+            flex-wrap: wrap;
+            /* 多行居中，需要设置父元素高度 */
+            /* align-content: center; */
+            /* align-content: space-between; */
+        }
+
+        .self {
+            height: 100px;
+            background-color: yellow;
+            /* 占满剩余空间 */
+            flex: 1;
+            /* 排序 */
+            order: -1;
+            /* 自身横轴居中对齐 */
+            align-self: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fu1">
+        <div class="zi1"></div>
+        <div class="zi1"></div>
+        <div class="zi1"></div>
+        <div class="zi1"></div>
+        <div class="zi1"></div>
+    </div>
+    <div>--------------------------------</div>
+    <div>纵轴排列方向</div>
+    <div class="fu2">
+        <div class="zi2"></div>
+        <div class="zi2"></div>
+        <div class="zi2"></div>
+        <div class="zi2"></div>
+        <div class="zi2"></div>
+    </div>
+    <div>--------------------------------</div>
+    <div>横轴排列方向</div>
+    <div class="fu3">
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+        <div class="zi3"></div>
+    </div>
+    <div>--------------------------------</div>
+    <div>子元素属性：flex:1,align-self,order</div>
+    <div class="fu4">
+        <div class="zi4"></div>
+        <div class="zi4"></div>
+        <div class="zi4"></div>
+        <div class="zi4"></div>
+        <div class="self"></div>
+    </div>
+</body>
+
+</html>

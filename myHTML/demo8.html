@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包函数</title>
+</head>
+
+<body>
+    <div>闭包就是“函数 + 它能访问的外部变量”的组合。即使外部函数执行完毕，内部函数依然可以记住并访问外部函数的变量</div>
+    <div>作用：可以实现数据的封装和隐藏，保护数据不被外部访问。</div>
+    <div>缺点：持续占用内存，导致内存泄漏。</div>
+    <div>解决方案：手动释放闭包函数占用的内存，使函数等于null。</div>
+    <div>应用场景：防抖/节流函数内部会缓存一个 timer（定时器ID），通过闭包让这个 timer 在多次触发中持续存在，从而控制执行频率。</div>
+    <script>
+        const outer = () => {
+            let count = 0
+            // 内部函数可以访问外部函数的变量 count
+            // inner 函数是一个闭包函数
+            const inner = () => {
+                count++
+                console.log(count)
+            }
+            return inner
+        }
+        const myFn = outer()
+        myFn() // 1
+        myFn() // 2
+        myFn() // 3
+        myFn() // 4
+        console.log('-------------------------------------')
+        // 普通全局函数（看似“没有”闭包效果）
+        let count = 0;
+        function addGlobal() {
+            count++; // 访问的是全局变量
+            return count;
+        }
+        // 虽然能累加，但 count 是暴露的，谁都能改，没有“封装”作用。
+        console.log(addGlobal()) // 1
+        console.log(addGlobal()) // 2
+        console.log(addGlobal()) // 3
+        console.log(addGlobal()) // 4
+
+        // 闭包持续占用内存，导致内存泄漏的原因
+        // https://chat.deepseek.com/share/kl0erhbz6yhdttr79p
+        function outer() {
+            let bigData = new Array(1000000).fill('占用内存');
+            return function inner() {
+                console.log(bigData.length); // 引用了 bigData
+            };
+        }
+        const closureFn = outer(); 
+    </script>
+</body>
+
+</html>

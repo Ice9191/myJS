@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>em,rem,px,rpx单位的区别</title>
+    <style>
+        .fu1 {
+            font-size: 10px;
+        }
+
+        .zi1 {
+            width: 10em;
+            height: 10em;
+            background-color: red;
+        }
+
+        html {
+            /* 相当于将电脑宽度分成750份 */
+            font-size: calc(100vw / 750);
+        }
+
+        .zi2 {
+            width: 100rem;
+            height: 100rem;
+            background-color: yellow;
+        }
+
+        .zi3 {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div>em单位：相对单位，相对于父元素的字体大小</div>
+    <div>子元素的宽高=父元素的字体大小*子元素的em值</div>
+    <div class="fu1">
+        <div class="zi1"></div>
+    </div>
+    <div>-----------------------------------------</div>
+    <div>rem单位：相对单位，相对于根元素的字体大小</div>
+    <div>子元素的宽高=根元素的字体大小*子元素的rem值*100vw/750=100px，此时写多少rem，就等于多少px</div>
+    <div class="fu2">
+        <div class="zi2"></div>
+    </div>
+    <div>-----------------------------------------</div>
+    <div>px单位：绝对单位，固定值</div>
+    <div>子元素的宽高=px值</div>
+    <div class="fu3">
+        <div class="zi3"></div>
+    </div>
+    <div>-----------------------------------------</div>
+    <div>rpx单位：微信小程序的一种屏幕宽度单位，可以随着屏幕的宽度而变化</div>
+    <div>当屏幕宽度为375px时，1rpx=0.5px</div>
+    <div>rpx 转 px: px = rpx * (设备屏幕宽度 / 750)</div>
+</body>
+
+</html>

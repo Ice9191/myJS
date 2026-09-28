@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型和原型链、作用域链、构造函数和class类</title>
+</head>
+
+<body>
+    <div>原型本质上就是一个普通对象，用来存放所有实例共享的属性和方法</div>
+    <div>隐式原型：每个实例对象都有一个__proto__属性，指向其构造函数的prototype</div>
+    <div>显式原型：每个函数都有的一个prototype属性，指向一个对象</div>
+    <div>原型链：当访问对象属性或方法时，先找自身，找不到就顺着__proto__向上找，直到Object.prototype.__proto__为null为止，这条链条就是原型链</div>
+    <script>
+        // 构造函数
+        function Person(name, age) {
+            // 实例属性（挂载在 this 上，this 指向实例）
+            this.name = name
+            this.age = age
+            // 千万不要在构造函数内部定义方法（会导致每个实例都存一份，浪费内存）
+        }
+        // 2. 定义共用方法（挂载在原型 prototype 上）
+        Person.prototype.sayHello = function () {
+            console.log(`Hello, I'm ${this.name}`);
+        };
+        // 3. 静态属性/方法（挂载在构造函数自身）
+        Person.species = 'human';
+        Person.info = function (val) {
+            console.log('This is a ' + val + ' class');
+        };
+        // 使用：必须 new
+        const p1 = new Person('张三', 25);
+        // p1.sayHello(); // Hello, I'm 张三
+
+        // class类
+        class Person1 {
+            // 构造函数（本质上就是那个构造器函数）
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            // 2. 实例方法（自动挂载在 Person.prototype 上，等价于上面的 sayHello）
+            sayHello() {
+                console.log(`Hello, I'm ${this.name}`);
+            }
+            // 3. 静态属性/方法（使用 static 关键字）
+            static species = 'human'; // ES7+ 静态字段
+            static info() {
+                console.log('This is a Person class');
+            }
+        }
+        const p2 = new Person1('张三', 25);
+        // p2.sayHello(); // Hello, I'm 张三
+
+        // 什么是实例？
+        // 实例：实例就是通过“构造函数（或类）”这个模具，造出来的具体“对象（Object）”。比如p1、p2就是实例。
+        // ---------------------------------------------------------------
+        // 隐式原型
+        const zhangsan = new Person('张三', 25)
+        console.log(zhangsan)
+        console.log(zhangsan.__proto__) // 输出的是[[prototype]]中的内容
+        console.dir(Person.prototype)
+        console.dir(Object)
+        // 原型链：zhangsan -> Person.prototype -> Object.prototype -> null。
+        console.log(zhangsan.__proto__ === Person.prototype)
+        console.log(Person.prototype.__proto__ === Object.prototype)
+        console.log(Object.prototype.__proto__)
+        // Person.prototype就是zhangsan的隐式原型，Object.prototype就是Person.prototype的隐式原型。
+    </script>
+</body>
+
+</html>

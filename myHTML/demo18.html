@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6新增特性</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 1、let 与 const 声明
+         * 2、箭头函数
+         * 3、模版字符串
+         * 4、解构赋值
+         * 5、函数参数默认值
+         */
+        // 解构赋值
+        const obj = {
+            name: 'hxb',
+            age: 18
+        }
+        const arr = [1, 2, 3, 4, 5]
+        const { name, age } = obj
+        const [a, b, c, d, e] = arr
+        console.log(name, age, a, b, c, d, e);
+        /**
+         * 1、Set
+         * 2、Map
+         */
+        // Set 与 Map：提供了新的集合类型。Set存储不重复的值；Map存储键值对，键可以是任意类型（包括对象），比普通对象更灵活。
+        /**
+         * 1、module模块：使用export导出，使用import导入
+         * 2、Promise对象：用于异步编程，解决回调地狱
+         * 3、字符串新增方法：includes()、startsWith()、endsWith()、repeat()
+         * 4、数组新增方法：find()、findIndex()、includes()
+         * 5、对象新增方法：Object.assign()、Object.keys()、Object.values()、Object.entries()
+         */
+        // Object.assign() 将所有源对象（sources）的可枚举自有属性浅拷贝到目标对象（target），并返回目标对象。
+        // 常用于对象合并、克隆或给对象添加默认属性。
+        console.log('----------------Object.assign()------------------')
+        const target = { a: 1 }
+        const source = { b: 2, c: 3, info: { d: 4 } }
+        Object.assign(target, source)
+        // 浅拷贝：第一层属性互不影响，但是第二层属性共享内存地址。
+        source.b = 100
+        source.info.d = '男'
+        console.log(target)
+        console.log(source)
+        console.log('----------------Object.keys()------------------')
+        // Object.keys() 返回一个数组，包含对象自身的所有可枚举属性的键名（字符串）。
+        const keysBef = {
+            name: '张三',
+            age: 18,
+            info: {
+                sex: '男'
+            }
+        }
+        const keys = Object.keys(keysBef)
+        console.log(keys)
+        console.log('----------------Object.values()------------------')
+        // Object.values() 返回一个数组，包含对象自身的所有可枚举属性的值。
+        const values = Object.values(keysBef)
+        console.log(values)
+        console.log('----------------Object.entries()------------------')
+        // Object.entries() 返回一个数组，包含对象自身的所有可枚举属性的 [key, value] 键值对数组。
+        const entries = Object.entries(keysBef)
+        console.log(entries)
+    </script>
+</body>
+
+</html>

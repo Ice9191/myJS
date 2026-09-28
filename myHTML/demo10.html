@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变量获取数据类型的方法</title>
+</head>
+
+<body>
+    <script>
+        // 1. typeof
+        console.log(typeof 100) // number
+
+        // 2. instanceof
+        console.log([1, 2, 3] instanceof Array)   //true
+        console.log(new Function() instanceof Function)   //true
+
+        // 3. toString.call
+        console.log(toString.call('你好'))   //[object String]
+        console.log(toString.call(100))   //[object Number]
+    </script>
+</body>
+
+</html>

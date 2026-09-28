@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid {
+            display: grid;
+            /* 3列：两边固定，中间自适应 */
+            grid-template-columns: 100px 1fr 100px;
+            /* 2行：头部自适应，内容区占满剩余高度 */
+            grid-template-rows: auto 1fr;
+            gap: 10px;
+            height: 300px;
+            background: #f0f0f0;
+        }
+
+        .header {
+            grid-column: 1 / 4;
+            /* 横跨3列 */
+        }
+
+        /* 注意：这里只有4个子元素，第2行只放了left, main, right */
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="header" style="background-color: red;">顶部导航</div>
+        <div class="left" style="background-color: blue;">左侧</div>
+        <div class="main" style="background-color: green;">主要内容</div>
+        <div class="right" style="background-color: yellow;">右侧</div>
+        <button @click="fn(1,2,3)">点击我</button>
+    </div>
+    <script>
+       
+    </script>
+</body>
+
+</html>

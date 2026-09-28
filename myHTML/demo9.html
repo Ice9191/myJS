@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>递归函数</title>
+</head>
+
+<body>
+    <div>递归函数：是指函数调用自身，直到满足某个条件为止。</div>
+    <script>
+        const countDown = (num) => {
+            // 递归函数的出口条件：当 num小于等于 0 时，递归结束。
+            if (num <= 0) {
+                console.log("递归结束");
+                return
+            }
+            console.log(num);
+            countDown(num - 1)
+        }
+        countDown(5)
+        // 5
+        // 4
+        // 3
+        // 2
+        // 1
+        // 递归结束
+    </script>
+</body>
+
+</html>

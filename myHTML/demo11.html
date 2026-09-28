@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串常用的方法</title>
+</head>
+
+<body>
+    <script>
+        let str1 = 'hello '
+        let str2 = 'world'
+        // concat()  拼接字符串
+        console.log(str1.concat(str2))  //hello world
+        console.log('--------------------------------------')
+        let str3 = '明日方舟,yyds'
+        // match()  匹配字符串
+        console.log(str3.match('y'))    //["y"]
+        console.log('--------------------------------------')
+        let str4 = '你好世界'
+        // replace()  替换字符串
+        console.log(str4.replace('世界', '中国'))    //你好中国
+        console.log('--------------------------------------')
+        let str5 = '南京地铁真挤'
+        // slice()  截取字符串
+        console.log(str5.slice(3))    //铁真挤
+        console.log(str5.slice(3, 5))    //铁真
+        console.log('--------------------------------------')
+        let str6 = '天气真好'
+        let str7 = '王者荣耀|英雄联盟|明日方舟'
+        // split()  分割字符串为数组
+        console.log(str6.split(''))    //["天, "气", "真", "好"]
+        console.log(str7.split('|'))    //["王者荣耀", "英雄联盟", "明日方舟"]
+        console.log('--------------------------------------')
+        let str8 = 'HELLO WORLD'
+        // toLowerCase()  转小写字符串
+        console.log(str8.toLowerCase())    //hello world
+        console.log('--------------------------------------')
+        let str9 = 'hello world'
+        // toUpperCase()  转大写字符串
+        console.log(str9.toUpperCase())    //HELLO WORLD
+        console.log('--------------------------------------')
+        let str10 = ' 你好 世界 '
+        // trim()  去掉字符串首尾空格
+        console.log(str10.trim())    //你好 世界
+    </script>
+</body>
+
+</html>

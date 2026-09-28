@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>div如何实现水平垂直居中</title>
+    <style>
+        [class^="fu"] {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+        }
+
+        [class^="zi"] {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+
+        /* flex布局 */
+        .fu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 定位+transform */
+        .fu1 {
+            position: relative;
+        }
+
+        .zi1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 定位+四个方向为0+margin:auto */
+        .fu2 {
+            position: relative;
+        }
+
+        .zi2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        /* 栅格布局 */
+        .fu3 {
+            display: grid;
+            place-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>flex布局</div>
+    <div class="fu">
+        <div class="zi"></div>
+    </div>
+    <div>-------------------------------------</div>
+    <div>定位+transform</div>
+    <div class="fu1">
+        <div class="zi1"></div>
+    </div>
+    <div>-------------------------------------</div>
+    <div>定位+四个方向为0+margin:auto</div>
+    <div class="fu2">
+        <div class="zi2"></div>
+    </div>
+    <div>-------------------------------------</div>
+    <div>栅格布局</div>
+    <div class="fu3">
+        <div class="zi3"></div>
+    </div>
+</body>
+
+</html>

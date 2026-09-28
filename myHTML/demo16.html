@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组去重方法</title>
+</head>
+
+<body>
+    <script>
+        const arr = [1, 2, 2, 3, 'a', 'a', true, true, { a: 1 }, { a: 1 }, { name: 'hxb', age: 18 }, { name: 'hxb', age: 18 }];
+        console.log('-------------------不可以对对象引用去重------------------------');
+        // 方法一：展开运算符 + Array.from
+        // 适用场景：数组元素为 基本类型（string， number， boolean， undefined， null）。
+        const unique = [...new Set(arr)];
+        // const unique = Array.from(new Set(arr));
+        console.log(unique); // [1, 2, 3, 'a', true]
+        // 方法二：使用 filter + indexOf 方法去重数组
+        // 适用场景：需要兼容 IE 等极老浏览器，且元素为基本类型。
+        const unique2 = arr.filter((item, index) => arr.indexOf(item) === index)
+        console.log(unique2); // [1, 2, 3, 'a', true]
+        console.log('-------------------可以对对象引用和基本类型去重------------------------');
+        // 方法三：使用 Map 去重
+        // 适用场景：数组元素是对象，需要根据某个唯一字段去重。
+        const arr1 = [
+            { id: 1, name: 'A' },
+            { id: 2, name: 'B' },
+            { id: 1, name: 'C' } // id重复
+        ];
+        const map = new Map()
+        const unique3 = arr1.filter(item => {
+            if (!map.has(item.id)) {
+                map.set(item.id, true)
+                // 保留元素
+                return true
+            }
+            // 过滤掉重复元素
+            return false
+        })
+        console.log(unique3);
+        // 方法四：使用 reduce 去重
+        const unique4 = arr1.reduce((acc, cur) => {
+            if (!acc.some(item => item.id === cur.id)) {
+                acc.push(cur)
+            }
+            return acc
+        }, [])
+        console.log(unique4);
+    </script>
+</body>
+
+</html>
